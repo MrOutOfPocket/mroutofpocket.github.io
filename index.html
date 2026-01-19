@@ -1,284 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jay Embaye | App Developer</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: black;
-      color: white;
-      overflow-x: hidden;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jay Embaye | App Developer</title>
 
-    /* Matrix effect canvas for background */
-    #matrixBackground {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      background: black;
-    }
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-    /* Header */
-    header {
-      position: relative;
-      text-align: center;
-      padding: 4rem 1rem;
-      overflow: hidden;
-      background: rgba(0, 0, 0, 0.8);
-      border-bottom: 2px solid gold;
-      box-shadow: 0 0 40px rgba(255,215,0,0.4);
-    }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: black;
+  color: white;
+  overflow-x: hidden;
+}
 
-    header h1 {
-      font-size: 3.5rem;
-      color: gold;
-      text-shadow: 0 0 15px gold, 0 0 30px #00b4d8;
-      animation: glowPulse 3s infinite ease-in-out;
-    }
+/* Matrix Background */
+#matrixBackground {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: black;
+}
 
-    @keyframes glowPulse {
-      0%, 100% { text-shadow: 0 0 15px gold, 0 0 25px #00b4d8; }
-      50% { text-shadow: 0 0 40px gold, 0 0 60px #00b4d8; }
-    }
+/* Header */
+header {
+  text-align: center;
+  padding: 4rem 1rem;
+  background: rgba(0,0,0,0.85);
+  border-bottom: 2px solid gold;
+  box-shadow: 0 0 40px rgba(255,215,0,0.4);
+}
 
-    header p {
-      font-size: 1.3rem;
-      color: #00b4d8;
-      text-shadow: 0 0 10px #00b4d8;
-    }
+header h1 {
+  font-size: 3.5rem;
+  color: gold;
+  text-shadow: 0 0 15px gold, 0 0 30px #00b4d8;
+  animation: glowPulse 3s infinite ease-in-out;
+}
 
-    section {
-      padding: 3rem 2rem;
-      max-width: 1200px;
-      margin: auto;
-    }
+@keyframes glowPulse {
+  0%,100% { text-shadow: 0 0 15px gold, 0 0 25px #00b4d8; }
+  50% { text-shadow: 0 0 40px gold, 0 0 60px #00b4d8; }
+}
 
-    .app-section {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: center;
-      margin-bottom: 4rem;
-      background: rgba(255,255,255,0.05);
-      border-radius: 1rem;
-      padding: 2rem;
-      box-shadow: 0 0 25px rgba(0,0,50,0.8);
-      transition: transform 0.5s ease, box-shadow 0.5s ease;
-      backdrop-filter: blur(5px);
-    }
+header p {
+  font-size: 1.3rem;
+  color: #00b4d8;
+  text-shadow: 0 0 10px #00b4d8;
+}
 
-    .app-section:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 0 40px rgba(255, 215, 0, 0.8), 0 0 60px rgba(0,180,216,0.6);
-    }
+/* Layout */
+section {
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
 
-    .app-section img {
-      width: 100%;
-      border-radius: 1rem;
-      border: 2px solid gold;
-      box-shadow: 0 0 25px rgba(255,215,0,0.6);
-      transition: box-shadow 0.5s ease;
-    }
+/* App Cards */
+.app-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 4rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 0 25px rgba(0,0,50,0.8);
+  backdrop-filter: blur(5px);
+  transition: 0.4s ease;
+}
 
-    .app-section img:hover {
-      box-shadow: 0 0 40px rgba(255,215,0,1), 0 0 70px rgba(0,180,216,0.9);
-    }
+.app-section:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 0 40px rgba(255,215,0,0.8), 0 0 60px rgba(0,180,216,0.6);
+}
 
-    .app-section h2 {
-      color: gold;
-      margin-bottom: 1rem;
-      text-shadow: 0 0 10px #00b4d8;
-    }
-    .app-section p {
-      color: #dcdcdc;
-      margin-bottom: 1rem;
-      line-height: 1.5;
-    }
-    .app-section a {
-      text-decoration: none;
-      color: #00b4d8;
-      font-weight: bold;
-      border: 1px solid #00b4d8;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
-    }
-    .app-section a:hover {
-      background: #00b4d8;
-      color: black;
-      box-shadow: 0 0 20px #00b4d8;
-    }
+.app-section img {
+  width: 100%;
+  border-radius: 1rem;
+  border: 2px solid gold;
+  box-shadow: 0 0 25px rgba(255,215,0,0.6);
+}
 
-    .socials {
-      text-align: center;
-      padding: 2rem;
-      background: rgba(0, 0, 0, 0.8);
-      border-top: 2px solid gold;
-      box-shadow: 0 -5px 20px rgba(255,215,0,0.3);
-    }
-    .socials h2 { color: gold; margin-bottom: 1rem; text-shadow: 0 0 10px gold; }
-    .social-links a {
-      margin: 0 1rem;
-      text-decoration: none;
-      color: white;
-      font-size: 1.3rem;
-      transition: color 0.3s, text-shadow 0.3s;
-    }
-    .social-links a:hover { color: gold; text-shadow: 0 0 20px gold; }
+.app-section h2 {
+  color: gold;
+  margin-bottom: 1rem;
+}
 
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: rgba(0, 0, 0, 0.9);
-      color: #ccc;
-      font-size: 0.9rem;
-      border-top: 1px solid gold;
-      text-shadow: 0 0 10px #00b4d8;
-    }
+.app-section h4 {
+  color: #ff3b3b;
+  margin-bottom: 0.5rem;
+}
 
-    @media(max-width: 768px) {
-      .app-section { grid-template-columns: 1fr; }
-    }
-  </style>
+.app-section p, li {
+  color: #ddd;
+  line-height: 1.6;
+  margin-bottom: 0.7rem;
+}
+
+.app-section ul {
+  padding-left: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.app-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.app-links a {
+  text-decoration: none;
+  padding: 10px 14px;
+  background: #00b4d8;
+  color: black;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.app-links a.secondary {
+  background: #444;
+  color: white;
+}
+
+.app-links a:hover {
+  box-shadow: 0 0 20px #00b4d8;
+}
+
+/* Socials */
+.socials {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(0,0,0,0.9);
+  border-top: 2px solid gold;
+}
+
+.socials h2 {
+  color: gold;
+  margin-bottom: 1rem;
+}
+
+.social-links a {
+  margin: 0 1rem;
+  text-decoration: none;
+  color: white;
+  transition: 0.3s;
+}
+
+.social-links a:hover {
+  color: gold;
+  text-shadow: 0 0 20px gold;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: black;
+  color: #aaa;
+  border-top: 1px solid gold;
+}
+
+@media(max-width: 768px){
+  .app-section {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
 </head>
+
 <body>
-  <canvas id="matrixBackground"></canvas>
-  <header>
-    <h1>Jay Embaye</h1>
-    <p>App Developer</p>
-  </header>
+<canvas id="matrixBackground"></canvas>
 
-  <section>
-    <div class="app-section">
-      <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/83/7a/56/837a56d5-3c46-4c42-9ee4-108f1e4de56d/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp" alt="Buna Fortunes">
-      <div>
-        <h2>Buna Fortunes</h2>
-        <p>Press on a Buna Cup to receive a unique fortune. Special feature <strong>Buna Forsigt</strong> uses your camera to read the fortune directly from your cup of buna.</p>
-        <a href="https://apps.apple.com/us/app/buna-fortunes/id6736999893" target="_blank">View on App Store</a>
-      </div>
-    </div>
+<header>
+  <h1>Jay Embaye</h1>
+  <p>App Developer</p>
+</header>
 
-    <div class="app-section">
-      <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/62/d3/d1/62d3d1f1-5013-1d0a-4a0e-8c527969b429/AppIcon-0-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp" alt="Dream Translator">
-      <div>
-        <h2>Dream Translator</h2>
-        <p>Enter your dreams and translate them into meanings, stories, and insights. A one-of-a-kind way to discover what your subconscious is telling you.</p>
-        <a href="https://apps.apple.com/us/app/dream-translator/id6746648758" target="_blank">View on App Store</a>
-      </div>
-    </div>
+<section>
 
-    <!-- NEW Excuse AI APP SECTION -->
-    <div class="app-section">
-      <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/45/a1/4f/45a14f9a-8b13-09f5-61b7-031715c8f5b8/AppIcon-0-1x_U007emarketing-0-0-0-7-0-0-85-220.png/230x0w.webp" alt="ExcuseAI">
-      <div>
-        <h2>ExcuseAI</h2>
-        <p>
-          Tired of lame excuses that nobody believes? Meet <strong>ExcuseAI</strong>, the fun and intelligent app that crafts personalized, creative excuses using advanced AI technology.
-          Whether you need to explain a missed meeting, a forgotten birthday, or an unexpected absence, ExcuseAI has you covered!
-        </p>
-        <p><strong>What Makes ExcuseAI Special:</strong><br>
-        - AI-Powered Creativity powered by Google's Gemini AI<br>
-        - Multiple categories: Work, School, Dating, Family, Friends, and more<br>
-        - Choose your tone: Funny, Formal, Creative, Believable, or Sarcastic<br>
-        - Smart formatting for SMS, Email, or Notes</p>
-        <p><strong>Key Features:</strong><br>
-        Daily Excuse of the Day • Personal Excuse History • Smart Statistics • Easy Sharing • Customizable Experience</p>
-        <p><strong>Perfect For:</strong> Professionals, Students, Social situations, Dating scenarios, or anyone who loves clever humor.</p>
-        <a href="https://apps.apple.com/us/app/excuseai/id6754696355" target="_blank">View on App Store</a>
-      </div>
-    </div>
-    <!-- END Excuse AI APP SECTION -->
-
-   <div class="app-section">
-  <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/f3/22/92/f3229296-4ac5-95ff-fae9-56c2b44d53e4/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp" alt="Hangry Detector">
+<!-- Pew Pew Roulette -->
+<div class="app-section">
+  <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/83/7a/56/837a56d5-3c46-4c42-9ee4-108f1e4de56d/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp">
   <div>
-    <h2>Hangry Detector</h2>
-    <p>Detect hunger-driven mood swings and keep life smooth with Hangry Detector. Using smart analysis and your device’s camera, it helps you understand when hunger is taking over — so you can stay cool, calm, and well-fed.</p>
-    <div style="display:flex; gap:10px; flex-wrap:wrap;">
-      <a href="https://apps.apple.com/us/app/hangry-detector/id6753637139" target="_blank">Check App Store Page</a>
-      <a href="privacy-policy.html" class="button" target="_blank">Privacy Policy</a>
-      </div>
-  </div>
-     
-    <div class="app-section">
-  <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ab/3d/4a/ab3d4a76-bb8e-82b1-4cb5-b1a55b66f514/AppIcon-0-1x_U007emarketing-0-0-0-7-0-0-85-220.png/230x0w.webp" alt="VibeLogs">
-  </div>
-    <h2>VibeLogs</h2>
-    <p>Discover VibeLogs, the beautifully simple way to track your moods and emotions. Whether you're feeling happy, sad, or anything in between, VibeLogs provides a safe and private space to document your feelings and reflect on your day.</p>
-    <p><strong>Key Features:</strong><br>
-      • Easy Mood Logging with emojis<br>
-      • Add Context with notes and photos<br>
-      • Mood Timeline to visualize emotional trends<br>
-      • Insightful Statistics (streaks, totals, insights)<br>
-      • Daily Inspirational Quotes<br>
-      • Share Your Journey with friends<br>
-      • Private & Secure: Data stored locally on your device
-    </p>
-    <p><strong>Start your journey to a happier, healthier you with VibeLogs today!</strong></p>
-    <div style="display:flex; gap:10px; flex-wrap:wrap;">
-      <a href="https://apps.apple.com/us/app/vibelogs/id6754963956" target="_blank">View on App Store</a>
-      <a href="vibelogs-privacy-policy.html" class="button" target="_blank">Privacy Policy</a>
+    <h2>Pew Pew Roulette</h2>
+    <h4>Spin the Chamber. Test Your Luck.</h4>
+    <p><strong>Promotional Text:</strong> Dare to spin? Experience the thrill of Pew Pew Roulette. The ultimate lens-based roulette game. Will you survive the shot?</p>
+    <p>Step into the high-stakes world of Pew Pew Roulette, where every spin is a test of nerve.</p>
+    <ul>
+      <li>Authentic Roulette Mechanics</li>
+      <li>Dynamic Camera Filters</li>
+      <li>"Wasted" Mode overlays</li>
+      <li>Photo Album</li>
+      <li>Share Your Fate</li>
+      <li>Custom bullet counts & themes</li>
+    </ul>
+    <div class="app-links">
+      <a href="https://apps.apple.com/us/app/pew-pew-roulette/id6757770104" target="_blank">View on App Store</a>
+      <a href="https://mroutofpocket.github.io/pewpewroulette-privacy-policy.html" class="secondary" target="_blank">Privacy Policy</a>
     </div>
   </div>
 </div>
-  </section>
 
-  <section class="socials">
-    <h2>Connect with Me</h2>
-    <div class="social-links">
-      <a href="https://www.facebook.com/Jayson.A.Tekle" target="_blank">Facebook</a>
-      <a href="https://www.youtube.com/@JayEmbaye" target="_blank">YouTube</a>
-      <a href="https://www.tiktok.com/@jayembaye" target="_blank">TikTok</a>
-      <a href="https://www.instagram.com/jay.embaye/" target="_blank">Instagram</a>
-      <a href="https://www.threads.com/@jay.embaye" target="_blank">Threads</a>
-      <a href="https://x.com/Jay_Embaye" target="_blank">X (Twitter)</a>
+<!-- Buna Fortunes -->
+<div class="app-section">
+  <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/83/7a/56/837a56d5-3c46-4c42-9ee4-108f1e4de56d/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp">
+  <div>
+    <h2>Buna Fortunes</h2>
+    <p>Press on a Buna Cup to receive a unique fortune. Special feature <strong>Buna Forsigt</strong> uses your camera to read the fortune directly from your cup.</p>
+    <div class="app-links">
+      <a href="https://apps.apple.com/us/app/buna-fortunes/id6736999893" target="_blank">View on App Store</a>
     </div>
-  </section>
+  </div>
+</div>
 
-  <footer>
-    <p>© 2025 Jay Embaye </p>
-  </footer>
+<!-- Dream Translator -->
+<div class="app-section">
+  <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/62/d3/d1/62d3d1f1-5013-1d0a-4a0e-8c527969b429/AppIcon-0-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp">
+  <div>
+    <h2>Dream Translator</h2>
+    <p>Translate your dreams into meanings, stories, and insights. Discover what your subconscious is telling you.</p>
+    <div class="app-links">
+      <a href="https://apps.apple.com/us/app/dream-translator/id6746648758" target="_blank">View on App Store</a>
+    </div>
+  </div>
+</div>
 
-  <script>
-    // Full-page Matrix Background
-    const canvasBg = document.getElementById('matrixBackground');
-    const ctxBg = canvasBg.getContext('2d');
+<!-- ExcuseAI -->
+<div class="app-section">
+  <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/45/a1/4f/45a14f9a-8b13-09f5-61b7-031715c8f5b8/AppIcon-0-1x_U007emarketing-0-0-0-7-0-0-85-220.png/230x0w.webp">
+  <div>
+    <h2>ExcuseAI</h2>
+    <p>Generate creative, believable excuses with AI for work, school, dating, and life.</p>
+    <div class="app-links">
+      <a href="https://apps.apple.com/us/app/excuseai/id6754696355" target="_blank">View on App Store</a>
+    </div>
+  </div>
+</div>
 
-    function resizeCanvas() {
-      canvasBg.width = window.innerWidth;
-      canvasBg.height = window.innerHeight;
+<!-- Hangry Detector -->
+<div class="app-section">
+  <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/f3/22/92/f3229296-4ac5-95ff-fae9-56c2b44d53e4/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp">
+  <div>
+    <h2>Hangry Detector</h2>
+    <p>Detect hunger-driven mood swings and stay calm, cool, and fed.</p>
+    <div class="app-links">
+      <a href="https://apps.apple.com/us/app/hangry-detector/id6753637139" target="_blank">View on App Store</a>
+      <a href="privacy-policy.html" class="secondary" target="_blank">Privacy Policy</a>
+    </div>
+  </div>
+</div>
+
+<!-- VibeLogs -->
+<div class="app-section">
+  <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ab/3d/4a/ab3d4a76-bb8e-82b1-4cb5-b1a55b66f514/AppIcon-0-1x_U007emarketing-0-0-0-7-0-0-85-220.png/230x0w.webp">
+  <div>
+    <h2>VibeLogs</h2>
+    <p>Track moods, emotions, and your mental health journey beautifully and privately.</p>
+    <div class="app-links">
+      <a href="https://apps.apple.com/us/app/vibelogs/id6754963956" target="_blank">View on App Store</a>
+      <a href="vibelogs-privacy-policy.html" class="secondary" target="_blank">Privacy Policy</a>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<section class="socials">
+  <h2>Connect with Me</h2>
+  <div class="social-links">
+    <a href="https://www.facebook.com/Jayson.A.Tekle" target="_blank">Facebook</a>
+    <a href="https://www.youtube.com/@JayEmbaye" target="_blank">YouTube</a>
+    <a href="https://www.tiktok.com/@jayembaye" target="_blank">TikTok</a>
+    <a href="https://www.instagram.com/jay.embaye/" target="_blank">Instagram</a>
+    <a href="https://www.threads.com/@jay.embaye" target="_blank">Threads</a>
+    <a href="https://x.com/Jay_Embaye" target="_blank">X</a>
+  </div>
+</section>
+
+<footer>
+<p>© 2026 Jay Embaye</p>
+</footer>
+
+<script>
+const canvasBg = document.getElementById("matrixBackground");
+const ctxBg = canvasBg.getContext("2d");
+
+function resizeCanvas(){
+  canvasBg.width = window.innerWidth;
+  canvasBg.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+const letters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const fontSize = 16;
+let drops = Array(Math.floor(window.innerWidth / fontSize)).fill(1);
+
+function drawMatrix(){
+  ctxBg.fillStyle = "rgba(0,0,0,0.1)";
+  ctxBg.fillRect(0,0,canvasBg.width,canvasBg.height);
+  ctxBg.fillStyle = Math.random() > 0.98 ? "gold" : "#00ff41";
+  ctxBg.font = fontSize + "px monospace";
+
+  for(let i=0;i<drops.length;i++){
+    const text = letters[Math.floor(Math.random()*letters.length)];
+    ctxBg.fillText(text, i*fontSize, drops[i]*fontSize);
+    if(drops[i]*fontSize > canvasBg.height && Math.random() > 0.975){
+      drops[i] = 0;
     }
+    drops[i]++;
+  }
+}
+setInterval(drawMatrix, 50);
+</script>
 
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    const letters = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const fontSize = 16;
-    let columns = canvasBg.width / fontSize;
-    let drops = [];
-
-    for (let x = 0; x < columns; x++) drops[x] = 1;
-
-    function drawMatrix() {
-      ctxBg.fillStyle = 'rgba(0, 0, 0, 0.1)';
-      ctxBg.fillRect(0, 0, canvasBg.width, canvasBg.height);
-      ctxBg.fillStyle = Math.random() > 0.98 ? 'gold' : '#00ff41';
-      ctxBg.font = fontSize + 'px monospace';
-
-      for (let i = 0; i < drops.length; i++) {
-        const text = letters.charAt(Math.floor(Math.random() * letters.length));
-        ctxBg.fillText(text, i * fontSize, drops[i] * fontSize);
-        if (drops[i] * fontSize > canvasBg.height && Math.random() > 0.975) drops[i] = 0;
-        drops[i]++;
-      }
-    }
-    setInterval(drawMatrix, 50);
-  </script>
 </body>
 </html>
