@@ -3,391 +3,1083 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add("js");</script>
 <title>Jay Embaye | App Developer</title>
+<meta name="description" content="Jay Embaye — App Developer. Games and apps: Buna Blessings, Droppin' Heat, Aura Affirmations, Compliment Sender, Identify Me Tag, Buna Fortunes, Dream Translator, ExcuseAI, Hangry Detector, VibeLogs.">
+<meta property="og:title" content="Jay Embaye | App Developer">
+<meta property="og:description" content="Games you can play in your browser and apps live on the App Store.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mroutofpocket.github.io/">
+<meta property="og:image" content="https://mroutofpocket.github.io/icons/droppin-heat.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23070810'/%3E%3Ctext x='50' y='72' font-size='64' text-anchor='middle' fill='%23f0c75e' font-family='Georgia,serif' font-weight='bold'%3EJ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+/* ============================================================
+   JAY EMBAYE — cosmic gold edition
+   ============================================================ */
+:root {
+  --bg: #05060d;
+  --bg-2: #0a0c18;
+  --ink: #eef0f8;
+  --ink-dim: #a8adc4;
+  --ink-faint: #666c85;
+  --gold: #f0c75e;
+  --gold-deep: #c89a3a;
+  --gold-soft: rgba(240, 199, 94, 0.14);
+  --cyan: #58c8f0;
+  --violet: #8f6cff;
+  --card: rgba(255, 255, 255, 0.035);
+  --card-edge: rgba(255, 255, 255, 0.09);
+  --radius: 26px;
+  --font-display: 'Unbounded', 'Inter', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html { scroll-behavior: smooth; }
+
 body {
-  font-family: 'Poppins', sans-serif;
-  background: black;
-  color: white;
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--ink);
   overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Matrix Background */
-#matrixBackground {
+::selection { background: var(--gold); color: #14100a; }
+
+::-webkit-scrollbar { width: 11px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold-deep), #55492a);
+  border-radius: 6px;
+  border: 2px solid var(--bg);
+}
+
+/* ---------- background layers ---------- */
+#stars {
   position: fixed;
   inset: 0;
+  z-index: -3;
+  background: radial-gradient(ellipse 120% 90% at 50% -10%, #10142c 0%, var(--bg) 55%);
+}
+
+.aurora {
+  position: fixed;
+  inset: -20%;
   z-index: -2;
-  background: black;
+  pointer-events: none;
+  filter: blur(90px);
+  opacity: 0.55;
+}
+.aurora::before, .aurora::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+}
+.aurora::before {
+  width: 55vw; height: 55vw;
+  left: -12vw; top: -8vw;
+  background: radial-gradient(circle at 30% 30%, rgba(143, 108, 255, 0.35), transparent 65%);
+  animation: drift-a 38s ease-in-out infinite alternate;
+}
+.aurora::after {
+  width: 60vw; height: 60vw;
+  right: -18vw; top: 20vh;
+  background: radial-gradient(circle at 60% 40%, rgba(88, 200, 240, 0.22), transparent 62%),
+              radial-gradient(circle at 40% 70%, rgba(240, 199, 94, 0.16), transparent 58%);
+  animation: drift-b 46s ease-in-out infinite alternate;
+}
+@keyframes drift-a {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(14vw, 22vh) scale(1.25); }
+}
+@keyframes drift-b {
+  from { transform: translate(0, 0) scale(1.15); }
+  to   { transform: translate(-16vw, -12vh) scale(0.9); }
 }
 
-/* Header */
-header {
-  text-align: center;
-  padding: 4rem 1rem;
-  background: rgba(0,0,0,0.85);
-  border-bottom: 2px solid gold;
-  box-shadow: 0 0 40px rgba(255,215,0,0.4);
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
 }
 
-header h1 {
-  font-size: 3.5rem;
-  color: gold;
-  text-shadow: 0 0 15px gold, 0 0 30px #00b4d8;
-  animation: glowPulse 3s infinite ease-in-out;
-}
-
-@keyframes glowPulse {
-  0%,100% { text-shadow: 0 0 15px gold, 0 0 25px #00b4d8; }
-  50% { text-shadow: 0 0 40px gold, 0 0 60px #00b4d8; }
-}
-
-header p {
-  font-size: 1.3rem;
-  color: #00b4d8;
-  text-shadow: 0 0 10px #00b4d8;
-}
-
-/* Layout */
-section {
-  padding: 3rem 2rem;
-  max-width: 1200px;
-  margin: auto;
-}
-
-/* App Cards */
-.app-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+/* ---------- nav ---------- */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  display: flex;
   align-items: center;
-  margin-bottom: 4rem;
-  background: rgba(255,255,255,0.05);
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 0 25px rgba(0,0,50,0.8);
-  backdrop-filter: blur(5px);
-  transition: 0.4s ease;
+  justify-content: space-between;
+  padding: 1rem clamp(1.2rem, 4vw, 3rem);
+  transition: background 0.35s ease, box-shadow 0.35s ease, backdrop-filter 0.35s ease;
+}
+nav.scrolled {
+  background: rgba(6, 7, 15, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 1px 0 rgba(240, 199, 94, 0.18), 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.02rem;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  background: linear-gradient(100deg, #fff2c8, var(--gold), #d8a940);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--gold);
+}
+.nav-links { display: flex; gap: clamp(0.4rem, 2vw, 1rem); }
+.nav-links a {
+  color: var(--ink-dim);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.86rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  transition: color 0.25s, background 0.25s;
+}
+.nav-links a:hover { color: var(--gold); background: var(--gold-soft); }
+
+/* ---------- hero ---------- */
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 7rem 1.2rem 3.5rem;
+  position: relative;
+}
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 1.6rem;
+}
+.hero-kicker::before, .hero-kicker::after {
+  content: "";
+  width: 34px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan));
+}
+.hero-kicker::after { background: linear-gradient(90deg, var(--cyan), transparent); }
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.6rem, 9.5vw, 6.4rem);
+  line-height: 1.04;
+  letter-spacing: 0.01em;
+  background: linear-gradient(105deg, #b8934a 0%, #ffe9ad 22%, #f0c75e 40%, #fff7dd 52%, #e0b054 68%, #9a7328 100%);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--gold);
+  animation: shimmer 7s linear infinite;
+  filter: drop-shadow(0 0 34px rgba(240, 199, 94, 0.28));
+}
+@keyframes shimmer {
+  to { background-position: 220% center; }
 }
 
-.app-section:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 0 40px rgba(255,215,0,0.8), 0 0 60px rgba(0,180,216,0.6);
+.hero-sub {
+  margin-top: 1.1rem;
+  font-size: clamp(1.05rem, 2.6vw, 1.45rem);
+  color: var(--ink-dim);
+  font-weight: 500;
+}
+.hero-sub strong { color: var(--ink); font-weight: 700; }
+
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-top: 2.1rem;
+}
+.stat-chip {
+  padding: 0.55rem 1.15rem;
+  border-radius: 999px;
+  border: 1px solid var(--card-edge);
+  background: var(--card);
+  backdrop-filter: blur(8px);
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--ink-dim);
+}
+.stat-chip b { color: var(--gold); font-weight: 800; }
+
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-top: 2.3rem;
 }
 
-.app-section img {
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s, border-color 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.btn:active { transform: scale(0.97); }
+.btn svg { flex: none; }
+
+.btn-gold {
+  background: linear-gradient(120deg, #e8bd54, #f7dc90 45%, #d8a940);
+  color: #1c1503;
+  box-shadow: 0 6px 28px rgba(240, 199, 94, 0.35);
+}
+.btn-gold::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -80%;
+  width: 50%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+  transform: skewX(-20deg);
+  animation: sheen 4.5s ease-in-out infinite;
+}
+@keyframes sheen {
+  0%, 55% { left: -80%; }
+  75%, 100% { left: 130%; }
+}
+.btn-gold:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 42px rgba(240, 199, 94, 0.55);
+}
+
+.btn-ghost {
+  border: 1px solid var(--card-edge);
+  background: var(--card);
+  color: var(--ink);
+  backdrop-filter: blur(8px);
+}
+.btn-ghost:hover {
+  transform: translateY(-3px);
+  border-color: rgba(240, 199, 94, 0.55);
+  box-shadow: 0 8px 30px rgba(240, 199, 94, 0.18);
+}
+
+.btn-sm { padding: 0.62rem 1.15rem; font-size: 0.86rem; }
+
+/* ---------- icon marquee ---------- */
+.marquee-wrap {
   width: 100%;
-  border-radius: 1rem;
-  border: 2px solid gold;
-  box-shadow: 0 0 25px rgba(255,215,0,0.6);
+  max-width: 1060px;
+  margin-top: 3.4rem;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.marquee {
+  display: flex;
+  width: max-content;
+  padding: 0.8rem 0 1.4rem;
+}
+.js .marquee { animation: scroll-x 30s linear infinite; }
+html:not(.js) .marquee {
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  row-gap: 1rem;
+}
+.marquee-wrap:hover .marquee { animation-play-state: paused; }
+@keyframes scroll-x {
+  to { transform: translateX(-50%); }
+}
+.marquee a {
+  display: block;
+  flex: none;
+  margin-right: 1.6rem;
+  transition: transform 0.3s ease;
+}
+.marquee a:hover { transform: translateY(-8px) scale(1.08); }
+.marquee img {
+  width: 76px; height: 76px;
+  object-fit: cover;
+  border-radius: 22.5%;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.09);
+  display: block;
 }
 
-.app-section h2 {
-  color: gold;
-  margin-bottom: 1rem;
+.scroll-cue {
+  margin-top: 2.6rem;
+  color: var(--ink-faint);
+  font-size: 1.35rem;
+  animation: bob 2.2s ease-in-out infinite;
+  text-decoration: none;
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(9px); opacity: 1; }
 }
 
-.app-section h4 {
-  color: #ff3b3b;
+/* ---------- sections ---------- */
+section { position: relative; }
+.section-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: clamp(4rem, 9vw, 7.5rem) clamp(1.2rem, 4vw, 2.5rem);
+}
+.section-head { text-align: center; margin-bottom: clamp(2.6rem, 6vw, 4.2rem); }
+.section-kicker {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 0.45rem 1.1rem;
+  border: 1px solid rgba(240, 199, 94, 0.35);
+  border-radius: 999px;
+  background: var(--gold-soft);
+  margin-bottom: 1.15rem;
+}
+.section-head h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  letter-spacing: 0.01em;
+}
+.section-head p {
+  margin-top: 0.8rem;
+  color: var(--ink-dim);
+  font-size: 1.05rem;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---------- game showcases ---------- */
+.game-card {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(1.6rem, 4vw, 3.2rem);
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--card-edge);
+  border-radius: var(--radius);
+  padding: clamp(1.5rem, 4vw, 3rem);
+  margin-bottom: clamp(2rem, 4.5vw, 3.2rem);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.game-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px circle at var(--mx, 30%) var(--my, 20%), var(--accent-soft, rgba(240,199,94,0.09)), transparent 45%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.game-card:hover::before { opacity: 1; }
+.game-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent-edge, rgba(240, 199, 94, 0.45));
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55), 0 0 60px var(--accent-glow, rgba(240, 199, 94, 0.14));
+}
+.game-card.flip { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
+.game-card.flip .game-art { order: 2; }
+.game-card.flip .game-info { order: 1; }
+
+.game-art { position: relative; }
+.game-art img {
+  width: 100%;
+  border-radius: 18px;
+  display: block;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6);
+  transition: transform 0.45s ease;
+}
+.game-card:hover .game-art img { transform: scale(1.035) rotate(-0.5deg); }
+.game-badge {
+  position: absolute;
+  top: 14px; left: 14px;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(5, 6, 13, 0.78);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--accent-edge, rgba(240, 199, 94, 0.5));
+  color: var(--accent, var(--gold));
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.game-info h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.4vw, 2.3rem);
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+.tagline {
+  color: var(--accent, var(--gold));
+  font-weight: 700;
+  font-size: 1.06rem;
+  margin-bottom: 0.9rem;
+}
+.game-info p { color: var(--ink-dim); margin-bottom: 0.8rem; }
+.feature-list { list-style: none; margin: 0.4rem 0 1.4rem; }
+.feature-list li {
+  color: var(--ink-dim);
+  padding-left: 1.55rem;
+  position: relative;
   margin-bottom: 0.5rem;
 }
-
-.app-section p, li {
-  color: #ddd;
-  line-height: 1.6;
-  margin-bottom: 0.7rem;
+.feature-list li::before {
+  content: "✦";
+  position: absolute;
+  left: 0.15rem;
+  color: var(--accent, var(--gold));
+  font-size: 0.85rem;
 }
+.card-links { display: flex; flex-wrap: wrap; gap: 0.7rem; }
 
-.app-section ul {
-  padding-left: 1.2rem;
-  margin-bottom: 1rem;
+/* ---------- app grid ---------- */
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 1.6rem;
 }
-
-.app-links {
+.app-card {
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--card-edge);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  transform-style: preserve-3d;
+}
+.app-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), var(--accent-soft, rgba(240,199,94,0.10)), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.app-card:hover::before { opacity: 1; }
+.app-card:hover {
+  transform: translateY(-7px);
+  border-color: var(--accent-edge, rgba(240, 199, 94, 0.45));
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.5), 0 0 44px var(--accent-glow, rgba(240, 199, 94, 0.13));
+}
+.app-card-head {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin-bottom: 1.05rem;
+}
+.app-card-head img {
+  width: 84px; height: 84px;
+  border-radius: 22.5%;
+  object-fit: cover;
+  flex: none;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transition: transform 0.35s ease;
+}
+.app-card:hover .app-card-head img { transform: scale(1.07) rotate(-3deg); }
+.app-card-head h3 {
+  font-family: var(--font-display);
+  font-size: 1.18rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.app-card-head .tagline {
+  font-size: 0.88rem;
+  margin: 0.25rem 0 0;
+}
+.app-card > p { color: var(--ink-dim); font-size: 0.95rem; margin-bottom: 0.7rem; }
+.app-card .feature-list { margin-bottom: 1.2rem; }
+.app-card .feature-list li { font-size: 0.9rem; margin-bottom: 0.35rem; }
+.app-card .card-links { margin-top: auto; }
+
+/* ---------- connect ---------- */
+.connect-section { text-align: center; }
+.social-grid {
+  display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 760px;
+  margin: 0 auto;
 }
-
-.app-links a {
+.social-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  width: 108px;
+  padding: 1.25rem 0.5rem 1rem;
+  border-radius: 20px;
+  border: 1px solid var(--card-edge);
+  background: var(--card);
+  backdrop-filter: blur(8px);
+  color: var(--ink-dim);
   text-decoration: none;
-  padding: 10px 14px;
-  background: #00b4d8;
-  color: black;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: 0.3s;
+  font-size: 0.82rem;
+  font-weight: 700;
+  transition: transform 0.3s ease, border-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
-
-.app-links a.secondary {
-  background: #444;
-  color: white;
+.social-btn svg { width: 26px; height: 26px; fill: currentColor; transition: transform 0.3s ease; }
+.social-btn:hover {
+  transform: translateY(-6px);
+  color: var(--gold);
+  border-color: rgba(240, 199, 94, 0.5);
+  box-shadow: 0 14px 38px rgba(240, 199, 94, 0.16);
 }
+.social-btn:hover svg { transform: scale(1.18); }
 
-.app-links a:hover {
-  box-shadow: 0 0 20px #00b4d8;
-}
-
-/* Socials */
-.socials {
-  text-align: center;
-  padding: 2rem;
-  background: rgba(0,0,0,0.9);
-  border-top: 2px solid gold;
-}
-
-.socials h2 {
-  color: gold;
-  margin-bottom: 1rem;
-}
-
-.social-links a {
-  margin: 0 1rem;
-  text-decoration: none;
-  color: white;
-  transition: 0.3s;
-}
-
-.social-links a:hover {
-  color: gold;
-  text-shadow: 0 0 20px gold;
-}
-
-/* Footer */
+/* ---------- footer ---------- */
 footer {
   text-align: center;
-  padding: 1rem;
-  background: black;
-  color: #aaa;
-  border-top: 1px solid gold;
+  padding: 2.6rem 1.2rem 3rem;
+  color: var(--ink-faint);
+  font-size: 0.9rem;
+  position: relative;
+}
+footer::before {
+  content: "";
+  display: block;
+  width: min(420px, 70%);
+  height: 1px;
+  margin: 0 auto 2.4rem;
+  background: linear-gradient(90deg, transparent, rgba(240, 199, 94, 0.6), transparent);
+}
+footer .foot-mark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  font-size: 0.85rem;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.6rem;
 }
 
-@media(max-width: 768px){
-  .app-section {
-    grid-template-columns: 1fr;
+/* ---------- back to top ---------- */
+#toTop {
+  position: fixed;
+  right: 1.4rem; bottom: 1.4rem;
+  z-index: 60;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(240, 199, 94, 0.45);
+  background: rgba(6, 7, 15, 0.8);
+  backdrop-filter: blur(10px);
+  color: var(--gold);
+  font-size: 1.15rem;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(14px);
+  transition: opacity 0.35s ease, transform 0.35s ease, box-shadow 0.3s;
+}
+#toTop.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+#toTop:hover { box-shadow: 0 0 26px rgba(240, 199, 94, 0.4); }
+
+/* ---------- reveal on scroll (hidden state only when JS is available) ---------- */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(34px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.65, 0.3, 1), transform 0.8s cubic-bezier(0.2, 0.65, 0.3, 1);
+  transition-delay: var(--d, 0s);
+}
+.js .reveal.in { opacity: 1; transform: none; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 860px) {
+  .game-card, .game-card.flip { grid-template-columns: 1fr; }
+  .game-card.flip .game-art { order: 1; }
+  .game-card.flip .game-info { order: 2; }
+  .game-art { max-width: 460px; margin: 0 auto; width: 100%; }
+}
+@media (max-width: 640px) {
+  nav { padding: 0.85rem 0.9rem; }
+  .nav-logo { font-size: 0.82rem; letter-spacing: 0.1em; }
+  .nav-links { gap: 0.1rem; }
+  .nav-links a { padding: 0.45rem 0.5rem; font-size: 0.72rem; letter-spacing: 0.05em; }
+  .app-grid { grid-template-columns: 1fr; }
+  .marquee img { width: 62px; height: 62px; }
+  .social-btn { width: 96px; }
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.15s !important;
   }
+  .js .marquee { animation: none; flex-wrap: wrap; justify-content: center; width: 100%; row-gap: 1rem; }
+  .js .reveal { opacity: 1; transform: none; }
 }
 </style>
 </head>
 
 <body>
-<canvas id="matrixBackground"></canvas>
 
-<header>
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="aurora" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<nav id="nav" aria-label="Main navigation">
+  <a class="nav-logo" href="#top">JAY&nbsp;EMBAYE</a>
+  <div class="nav-links">
+    <a href="#games">Games</a>
+    <a href="#apps">Apps</a>
+    <a href="#connect">Connect</a>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <span class="hero-kicker">Welcome to the arcade</span>
   <h1>Jay Embaye</h1>
-  <p>App Developer</p>
+  <p class="hero-sub"><strong>App Developer</strong> — building games you can play in your browser<br>and apps that live on the App&nbsp;Store.</p>
+
+  <div class="hero-stats">
+    <span class="stat-chip"><b>10</b> apps &amp; games</span>
+    <span class="stat-chip"><b>2</b> playable in your browser</span>
+    <span class="stat-chip"><b>7</b> live on the App Store</span>
+  </div>
+
+  <div class="hero-cta">
+    <a class="btn btn-gold" href="#games">▶&nbsp; Play the Games</a>
+    <a class="btn btn-ghost" href="#apps">Browse the Apps</a>
+  </div>
+
+  <div class="marquee-wrap" aria-label="App icons">
+    <div class="marquee" id="marquee">
+      <a href="#buna-blessings" title="Buna Blessings"><img src="icons/buna-blessings.png" alt="Buna Blessings icon" style="width:auto;aspect-ratio:16/9;"></a>
+      <a href="#droppin-heat" title="Droppin' Heat"><img src="icons/droppin-heat.png" alt="Droppin' Heat icon"></a>
+      <a href="#aura-affirmations" title="Aura Affirmations"><img src="icons/aura-affirmations.png" alt="Aura Affirmations icon"></a>
+      <a href="#compliment-sender" title="Compliment Sender"><img src="icons/compliment-sender.png" alt="Compliment Sender icon"></a>
+      <a href="#identify-me-tag" title="Identify Me Tag"><img src="icons/identify-me-tag.png" alt="Identify Me Tag icon"></a>
+      <a href="#buna-fortunes" title="Buna Fortunes"><img src="icons/buna-fortunes.png" alt="Buna Fortunes icon"></a>
+      <a href="#dream-translator" title="Dream Translator"><img src="icons/dream-translator.png" alt="Dream Translator icon"></a>
+      <a href="#excuseai" title="ExcuseAI"><img src="icons/excuseai.png" alt="ExcuseAI icon"></a>
+      <a href="#hangry-detector" title="Hangry Detector"><img src="icons/hangry-detector.png" alt="Hangry Detector icon"></a>
+      <a href="#vibelogs" title="VibeLogs"><img src="icons/vibelogs.png" alt="VibeLogs icon"></a>
+    </div>
+  </div>
+
+  <a class="scroll-cue" href="#games" aria-label="Scroll down">▼</a>
 </header>
 
-<section>
+<!-- ================= GAMES ================= -->
+<section id="games">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="section-kicker">Play Now — Free in Your Browser</span>
+      <h2>The Games</h2>
+      <p>No download, no install. Click play and you're in.</p>
+    </div>
 
-<!-- Buna Blessings -->
-<div class="app-section">
-  <img src="https://mroutofpocket.github.io/buna-blessings-icon.png">
-  <div>
-    <h2>Buna Blessings</h2>
-    <h4>Nobody stays grumpy after buna.</h4>
-    <p>A non-violent first-person survival game. You're a waiter trapped in an Eritrean/Ethiopian restaurant after closing, curing a supernatural grumpiness curse the only way that works: magical coffee.</p>
-    <p>No guns, no gore &mdash; just a finjal of buna in one hand and a thrown cup in the other, satisfying increasingly grumpy guests across escalating rounds.</p>
-    <ul>
-      <li>25 playable/guest characters, each with their own hands, walk and slap</li>
-      <li>Perfect Pour active-reload jebena refill</li>
-      <li>Escalating rounds, boss encounters, beans economy and perks</li>
-      <li>Local co-op for up to 4 waiters on the same network</li>
-    </ul>
-    <div class="app-links">
-      <a href="https://mroutofpocket.github.io/buna-blessings/" target="_blank">Play in browser</a>
+    <!-- Buna Blessings -->
+    <div class="game-card reveal" id="buna-blessings" style="--accent:#e8a34c; --accent-soft:rgba(232,163,76,0.10); --accent-edge:rgba(232,163,76,0.5); --accent-glow:rgba(232,163,76,0.16);">
+      <div class="game-art">
+        <img src="icons/buna-blessings.png" alt="Buna Blessings artwork">
+        <span class="game-badge">Browser Game</span>
+      </div>
+      <div class="game-info">
+        <h3>Buna Blessings</h3>
+        <p class="tagline">Nobody stays grumpy after buna.</p>
+        <p>A non-violent first-person survival game. You're a waiter trapped in an Eritrean/Ethiopian restaurant after closing, curing a supernatural grumpiness curse the only way that works: magical coffee.</p>
+        <p>No guns, no gore &mdash; just a finjal of buna in one hand and a thrown cup in the other, satisfying increasingly grumpy guests across escalating rounds.</p>
+        <ul class="feature-list">
+          <li>25 playable/guest characters, each with their own hands, walk and slap</li>
+          <li>Perfect Pour active-reload jebena refill</li>
+          <li>Escalating rounds, boss encounters, beans economy and perks</li>
+          <li>Local co-op for up to 4 waiters on the same network</li>
+        </ul>
+        <div class="card-links">
+          <a class="btn btn-gold btn-sm" href="https://mroutofpocket.github.io/buna-blessings/" target="_blank" rel="noopener">▶&nbsp; Play in browser</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Droppin' Heat -->
+    <div class="game-card flip reveal" id="droppin-heat" style="--accent:#f5b942; --accent-soft:rgba(245,185,66,0.10); --accent-edge:rgba(245,185,66,0.5); --accent-glow:rgba(245,185,66,0.16);">
+      <div class="game-art">
+        <img src="icons/droppin-heat.png" alt="Droppin' Heat artwork">
+        <span class="game-badge">Browser Game</span>
+      </div>
+      <div class="game-info">
+        <h3>Droppin&#39; Heat</h3>
+        <p class="tagline">Gravity is a weapon.</p>
+        <p>An arcade score chase. You are a pigeon, and the traffic below you is a leaderboard.</p>
+        <p>Lead your target, aim for the glass, and break the road wide open.</p>
+        <ul class="feature-list">
+          <li>35 unlockable birds, each one flies differently</li>
+          <li>Hit a car hard enough and the driver loses it &mdash; pile-ups pay</li>
+          <li>A boss fight every three waves</li>
+          <li>Random weather every wave, 12 power-ups</li>
+        </ul>
+        <div class="card-links">
+          <a class="btn btn-gold btn-sm" href="https://mroutofpocket.github.io/droppinheat/" target="_blank" rel="noopener">▶&nbsp; Play in browser</a>
+          <a class="btn btn-ghost btn-sm" href="https://mroutofpocket.github.io/droppinheat-privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-
-<!-- Droppin' Heat -->
-<div class="app-section">
-  <img src="https://mroutofpocket.github.io/droppinheat-icon.png">
-  <div>
-    <h2>Droppin&#39; Heat</h2>
-    <h4>Gravity is a weapon.</h4>
-    <p>An arcade score chase. You are a pigeon, and the traffic below you is a leaderboard.</p>
-    <p>Lead your target, aim for the glass, and break the road wide open.</p>
-    <ul>
-      <li>35 unlockable birds, each one flies differently</li>
-      <li>Hit a car hard enough and the driver loses it &mdash; pile-ups pay</li>
-      <li>A boss fight every three waves</li>
-      <li>Random weather every wave, 12 power-ups</li>
-    </ul>
-    <div class="app-links">
-      <a href="https://mroutofpocket.github.io/droppinheat/" target="_blank">Play in browser</a>
-      <a href="https://mroutofpocket.github.io/droppinheat-privacy-policy.html" class="secondary" target="_blank">Privacy Policy</a>
-    </div>
-  </div>
-</div>
-
-<!-- Aura Affirmations -->
-<div class="app-section">
-  <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/83/7a/56/837a56d5-3c46-4c42-9ee4-108f1e4de56d/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp">
-  <div>
-    <h2>Aura Affirmations</h2>
-    <h4>Luxury affirmations, goals, and journaling in one calm space.</h4>
-    <p>Swipe through affirmations for confidence, wealth, self-worth, discipline, and calm. Style each card with your own photos and fonts, then share it.</p>
-    <ul>
-      <li>Swipeable daily affirmations</li>
-      <li>Daily, monthly, and yearly goal tracking</li>
-      <li>Private mood journal with photos</li>
-      <li>Custom photo backgrounds and fonts</li>
-    </ul>
-    <div class="app-links">
-      <a href="aura-affirmations-privacy-policy.html" class="secondary" target="_blank">Privacy Policy</a>
-    </div>
-  </div>
-</div>
-
-<!-- Compliment Sender -->
-<div class="app-section">
-  <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/83/7a/56/837a56d5-3c46-4c42-9ee4-108f1e4de56d/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp">
-  <div>
-    <h2>Compliment Sender</h2>
-    <h4>Brighten their day in seconds.</h4>
-    <p>Send positive messages fast. Pick a compliment, personalize it, and send good vibes instantly.</p>
-    <p>Perfect for friends, coworkers, or anyone who deserves a little boost.</p>
-    <ul>
-      <li>Compliment templates</li>
-      <li>Customizable text</li>
-      <li>Share anywhere</li>
-      <li>Save favorites</li>
-    </ul>
-    <div class="app-links">
-      <a href="https://apps.apple.com/us/app/compliment-sender/id6761260121" target="_blank">View on App Store</a>
-      <a href="https://mroutofpocket.github.io/complimentsender-privacy-policy.html" class="secondary" target="_blank">Privacy Policy</a>
-    </div>
-  </div>
-</div>
-
-<!-- Identify Me Tag -->
-<div class="app-section">
-  <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/83/7a/56/837a56d5-3c46-4c42-9ee4-108f1e4de56d/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp">
-  <div>
-    <h2>Identify Me Tag</h2>
-    <h4>Make Every Intro Unforgettable.</h4>
-    <p>Make a scroll-stopping creator tag with your vibe, pronouns, bio, links, and pics. Share in seconds as text or image and make every intro unforgettable.</p>
-    <div class="app-links">
-      <a href="https://apps.apple.com/us/app/identify-me-tag/id6759826734" target="_blank">View on App Store</a>
-      <a href="https://mroutofpocket.github.io/identifymetag-privacy-policy.html" class="secondary" target="_blank">Privacy Policy</a>
-    </div>
-  </div>
-</div>
-
-<!-- Buna Fortunes -->
-<div class="app-section">
-  <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/83/7a/56/837a56d5-3c46-4c42-9ee4-108f1e4de56d/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp">
-  <div>
-    <h2>Buna Fortunes</h2>
-    <p>Press on a Buna Cup to receive a unique fortune. Special feature <strong>Buna Forsigt</strong> uses your camera to read the fortune directly from your cup.</p>
-    <div class="app-links">
-      <a href="https://apps.apple.com/us/app/buna-fortunes/id6736999893" target="_blank">View on App Store</a>
-    </div>
-  </div>
-</div>
-
-<!-- Dream Translator -->
-<div class="app-section">
-  <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/62/d3/d1/62d3d1f1-5013-1d0a-4a0e-8c527969b429/AppIcon-0-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp">
-  <div>
-    <h2>Dream Translator</h2>
-    <p>Translate your dreams into meanings, stories, and insights. Discover what your subconscious is telling you.</p>
-    <div class="app-links">
-      <a href="https://apps.apple.com/us/app/dream-translator/id6746648758" target="_blank">View on App Store</a>
-    </div>
-  </div>
-</div>
-
-<!-- ExcuseAI -->
-<div class="app-section">
-  <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/45/a1/4f/45a14f9a-8b13-09f5-61b7-031715c8f5b8/AppIcon-0-1x_U007emarketing-0-0-0-7-0-0-85-220.png/230x0w.webp">
-  <div>
-    <h2>ExcuseAI</h2>
-    <p>Generate creative, believable excuses with AI for work, school, dating, and life.</p>
-    <div class="app-links">
-      <a href="https://apps.apple.com/us/app/excuseai/id6754696355" target="_blank">View on App Store</a>
-    </div>
-  </div>
-</div>
-
-<!-- Hangry Detector -->
-<div class="app-section">
-  <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/f3/22/92/f3229296-4ac5-95ff-fae9-56c2b44d53e4/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp">
-  <div>
-    <h2>Hangry Detector</h2>
-    <p>Detect hunger-driven mood swings and stay calm, cool, and fed.</p>
-    <div class="app-links">
-      <a href="https://apps.apple.com/us/app/hangry-detector/id6753637139" target="_blank">View on App Store</a>
-      <a href="privacy-policy.html" class="secondary" target="_blank">Privacy Policy</a>
-    </div>
-  </div>
-</div>
-
-<!-- VibeLogs -->
-<div class="app-section">
-  <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ab/3d/4a/ab3d4a76-bb8e-82b1-4cb5-b1a55b66f514/AppIcon-0-1x_U007emarketing-0-0-0-7-0-0-85-220.png/230x0w.webp">
-  <div>
-    <h2>VibeLogs</h2>
-    <p>Track moods, emotions, and your mental health journey beautifully and privately.</p>
-    <div class="app-links">
-      <a href="https://apps.apple.com/us/app/vibelogs/id6754963956" target="_blank">View on App Store</a>
-      <a href="vibelogs-privacy-policy.html" class="secondary" target="_blank">Privacy Policy</a>
-    </div>
-  </div>
-</div>
-
 </section>
 
-<section class="socials">
-  <h2>Connect with Me</h2>
-  <div class="social-links">
-    <a href="https://www.facebook.com/Jayson.A.Tekle" target="_blank">Facebook</a>
-    <a href="https://www.youtube.com/@JayEmbaye" target="_blank">YouTube</a>
-    <a href="https://www.tiktok.com/@jayembaye" target="_blank">TikTok</a>
-    <a href="https://www.instagram.com/jay.embaye/" target="_blank">Instagram</a>
-    <a href="https://www.threads.com/@jay.embaye" target="_blank">Threads</a>
-    <a href="https://x.com/Jay_Embaye" target="_blank">X</a>
+<!-- ================= APPS ================= -->
+<section id="apps">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="section-kicker">On the App Store</span>
+      <h2>The Apps</h2>
+      <p>Made for iPhone. Made to make your day a little better &mdash; or at least a lot funnier.</p>
+    </div>
+
+    <div class="app-grid">
+
+      <!-- Aura Affirmations -->
+      <div class="app-card reveal" id="aura-affirmations" style="--accent:#d9b874; --accent-soft:rgba(217,184,116,0.10); --accent-edge:rgba(217,184,116,0.5); --accent-glow:rgba(217,184,116,0.14); --d:0s;">
+        <div class="app-card-head">
+          <img src="icons/aura-affirmations.png" alt="Aura Affirmations icon">
+          <div>
+            <h3>Aura Affirmations</h3>
+            <p class="tagline">Luxury affirmations, goals, and journaling in one calm space.</p>
+          </div>
+        </div>
+        <p>Swipe through affirmations for confidence, wealth, self-worth, discipline, and calm. Style each card with your own photos and fonts, then share it.</p>
+        <ul class="feature-list">
+          <li>Swipeable daily affirmations</li>
+          <li>Daily, monthly, and yearly goal tracking</li>
+          <li>Private mood journal with photos</li>
+          <li>Custom photo backgrounds and fonts</li>
+        </ul>
+        <div class="card-links">
+          <a class="btn btn-ghost btn-sm" href="aura-affirmations-privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>
+        </div>
+      </div>
+
+      <!-- Compliment Sender -->
+      <div class="app-card reveal" id="compliment-sender" style="--accent:#5aa7ff; --accent-soft:rgba(90,167,255,0.10); --accent-edge:rgba(90,167,255,0.5); --accent-glow:rgba(90,167,255,0.14); --d:0.07s;">
+        <div class="app-card-head">
+          <img src="icons/compliment-sender.png" alt="Compliment Sender icon">
+          <div>
+            <h3>Compliment Sender</h3>
+            <p class="tagline">Brighten their day in seconds.</p>
+          </div>
+        </div>
+        <p>Send positive messages fast. Pick a compliment, personalize it, and send good vibes instantly.</p>
+        <p>Perfect for friends, coworkers, or anyone who deserves a little boost.</p>
+        <ul class="feature-list">
+          <li>Compliment templates</li>
+          <li>Customizable text</li>
+          <li>Share anywhere</li>
+          <li>Save favorites</li>
+        </ul>
+        <div class="card-links">
+          <a class="btn btn-gold btn-sm" href="https://apps.apple.com/us/app/compliment-sender/id6761260121" target="_blank" rel="noopener"> View on App Store</a>
+          <a class="btn btn-ghost btn-sm" href="https://mroutofpocket.github.io/complimentsender-privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>
+        </div>
+      </div>
+
+      <!-- Identify Me Tag -->
+      <div class="app-card reveal" id="identify-me-tag" style="--accent:#b06cff; --accent-soft:rgba(176,108,255,0.10); --accent-edge:rgba(176,108,255,0.5); --accent-glow:rgba(176,108,255,0.14); --d:0.14s;">
+        <div class="app-card-head">
+          <img src="icons/identify-me-tag.png" alt="Identify Me Tag icon">
+          <div>
+            <h3>Identify Me Tag</h3>
+            <p class="tagline">Make Every Intro Unforgettable.</p>
+          </div>
+        </div>
+        <p>Make a scroll-stopping creator tag with your vibe, pronouns, bio, links, and pics. Share in seconds as text or image and make every intro unforgettable.</p>
+        <div class="card-links">
+          <a class="btn btn-gold btn-sm" href="https://apps.apple.com/us/app/identify-me-tag/id6759826734" target="_blank" rel="noopener"> View on App Store</a>
+          <a class="btn btn-ghost btn-sm" href="https://mroutofpocket.github.io/identifymetag-privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>
+        </div>
+      </div>
+
+      <!-- Buna Fortunes -->
+      <div class="app-card reveal" id="buna-fortunes" style="--accent:#ff9d45; --accent-soft:rgba(255,157,69,0.10); --accent-edge:rgba(255,157,69,0.5); --accent-glow:rgba(255,157,69,0.14); --d:0s;">
+        <div class="app-card-head">
+          <img src="icons/buna-fortunes.png" alt="Buna Fortunes icon">
+          <div>
+            <h3>Buna Fortunes</h3>
+            <p class="tagline">Your cup has something to tell you.</p>
+          </div>
+        </div>
+        <p>Press on a Buna Cup to receive a unique fortune. Special feature <strong>Buna Forsigt</strong> uses your camera to read the fortune directly from your cup.</p>
+        <div class="card-links">
+          <a class="btn btn-gold btn-sm" href="https://apps.apple.com/us/app/buna-fortunes/id6736999893" target="_blank" rel="noopener"> View on App Store</a>
+        </div>
+      </div>
+
+      <!-- Dream Translator -->
+      <div class="app-card reveal" id="dream-translator" style="--accent:#6cb8ff; --accent-soft:rgba(108,184,255,0.10); --accent-edge:rgba(108,184,255,0.5); --accent-glow:rgba(108,184,255,0.14); --d:0.07s;">
+        <div class="app-card-head">
+          <img src="icons/dream-translator.png" alt="Dream Translator icon">
+          <div>
+            <h3>Dream Translator</h3>
+            <p class="tagline">Decode what your sleep is saying.</p>
+          </div>
+        </div>
+        <p>Translate your dreams into meanings, stories, and insights. Discover what your subconscious is telling you.</p>
+        <div class="card-links">
+          <a class="btn btn-gold btn-sm" href="https://apps.apple.com/us/app/dream-translator/id6746648758" target="_blank" rel="noopener"> View on App Store</a>
+        </div>
+      </div>
+
+      <!-- ExcuseAI -->
+      <div class="app-card reveal" id="excuseai" style="--accent:#ff5c4d; --accent-soft:rgba(255,92,77,0.10); --accent-edge:rgba(255,92,77,0.5); --accent-glow:rgba(255,92,77,0.14); --d:0.14s;">
+        <div class="app-card-head">
+          <img src="icons/excuseai.png" alt="ExcuseAI icon">
+          <div>
+            <h3>ExcuseAI</h3>
+            <p class="tagline">Plausible deniability, on demand.</p>
+          </div>
+        </div>
+        <p>Generate creative, believable excuses with AI for work, school, dating, and life.</p>
+        <div class="card-links">
+          <a class="btn btn-gold btn-sm" href="https://apps.apple.com/us/app/excuseai/id6754696355" target="_blank" rel="noopener"> View on App Store</a>
+        </div>
+      </div>
+
+      <!-- Hangry Detector -->
+      <div class="app-card reveal" id="hangry-detector" style="--accent:#ff8a3d; --accent-soft:rgba(255,138,61,0.10); --accent-edge:rgba(255,138,61,0.5); --accent-glow:rgba(255,138,61,0.14); --d:0s;">
+        <div class="app-card-head">
+          <img src="icons/hangry-detector.png" alt="Hangry Detector icon">
+          <div>
+            <h3>Hangry Detector</h3>
+            <p class="tagline">Snack before you snap.</p>
+          </div>
+        </div>
+        <p>Detect hunger-driven mood swings and stay calm, cool, and fed.</p>
+        <div class="card-links">
+          <a class="btn btn-gold btn-sm" href="https://apps.apple.com/us/app/hangry-detector/id6753637139" target="_blank" rel="noopener"> View on App Store</a>
+          <a class="btn btn-ghost btn-sm" href="privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>
+        </div>
+      </div>
+
+      <!-- VibeLogs -->
+      <div class="app-card reveal" id="vibelogs" style="--accent:#7fe3a9; --accent-soft:rgba(127,227,169,0.10); --accent-edge:rgba(127,227,169,0.5); --accent-glow:rgba(127,227,169,0.14); --d:0.07s;">
+        <div class="app-card-head">
+          <img src="icons/vibelogs.png" alt="VibeLogs icon">
+          <div>
+            <h3>VibeLogs</h3>
+            <p class="tagline">Feelings, beautifully logged.</p>
+          </div>
+        </div>
+        <p>Track moods, emotions, and your mental health journey beautifully and privately.</p>
+        <div class="card-links">
+          <a class="btn btn-gold btn-sm" href="https://apps.apple.com/us/app/vibelogs/id6754963956" target="_blank" rel="noopener"> View on App Store</a>
+          <a class="btn btn-ghost btn-sm" href="vibelogs-privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONNECT ================= -->
+<section id="connect" class="connect-section">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="section-kicker">Socials</span>
+      <h2>Connect with Me</h2>
+      <p>Come say hi &mdash; new apps, behind-the-scenes, and whatever else I'm cooking.</p>
+    </div>
+
+    <div class="social-grid reveal">
+      <a class="social-btn" href="https://www.facebook.com/Jayson.A.Tekle" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Facebook
+      </a>
+      <a class="social-btn" href="https://www.youtube.com/@JayEmbaye" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        YouTube
+      </a>
+      <a class="social-btn" href="https://www.tiktok.com/@jayembaye" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        TikTok
+      </a>
+      <a class="social-btn" href="https://www.instagram.com/jay.embaye/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg>
+        Instagram
+      </a>
+      <a class="social-btn" href="https://www.threads.com/@jay.embaye" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.781 3.631 2.695 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32L7.734 7.847c.98-1.454 2.568-2.256 4.478-2.256h.044c3.194.02 5.097 1.975 5.287 5.388.108.046.216.094.321.142 1.49.7 2.58 1.761 3.154 3.07.797 1.82.871 4.79-1.548 7.158-1.85 1.81-4.094 2.628-7.277 2.65Zm1.003-11.69c-.242 0-.487.007-.739.021-1.836.103-2.98.946-2.916 2.143.067 1.256 1.452 1.839 2.784 1.767 1.224-.065 2.818-.543 3.086-3.71a10.5 10.5 0 0 0-2.215-.221z"/></svg>
+        Threads
+      </a>
+      <a class="social-btn" href="https://x.com/Jay_Embaye" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+        X
+      </a>
+    </div>
   </div>
 </section>
 
 <footer>
-<p>© 2026 Jay Embaye</p>
+  <span class="foot-mark">JAY EMBAYE</span>
+  <p>© 2026 Jay Embaye</p>
 </footer>
 
+<button id="toTop" aria-label="Back to top">▲</button>
+
 <script>
-const canvasBg = document.getElementById("matrixBackground");
-const ctxBg = canvasBg.getContext("2d");
+/* ---------- starfield ---------- */
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let stars = [];
+let shooting = [];
+let W, H;
 
-function resizeCanvas(){
-  canvasBg.width = window.innerWidth;
-  canvasBg.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
-
-const letters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const fontSize = 16;
-let drops = Array(Math.floor(window.innerWidth / fontSize)).fill(1);
-
-function drawMatrix(){
-  ctxBg.fillStyle = "rgba(0,0,0,0.1)";
-  ctxBg.fillRect(0,0,canvasBg.width,canvasBg.height);
-  ctxBg.fillStyle = Math.random() > 0.98 ? "gold" : "#00ff41";
-  ctxBg.font = fontSize + "px monospace";
-
-  for(let i=0;i<drops.length;i++){
-    const text = letters[Math.floor(Math.random()*letters.length)];
-    ctxBg.fillText(text, i*fontSize, drops[i]*fontSize);
-    if(drops[i]*fontSize > canvasBg.height && Math.random() > 0.975){
-      drops[i] = 0;
-    }
-    drops[i]++;
+function resize() {
+  const widthChanged = W !== window.innerWidth;
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+  if (widthChanged || stars.length === 0) {
+    const count = Math.min(240, Math.floor((W * H) / 6500));
+    stars = Array.from({ length: count }, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      z: Math.random(),                       // depth: 0 far, 1 near
+      r: 0.4 + Math.random() * 1.4,
+      tw: Math.random() * Math.PI * 2,
+      ts: 0.008 + Math.random() * 0.03,
+      gold: Math.random() > 0.86
+    }));
   }
+  if (reduceMotion) render();
 }
-setInterval(drawMatrix, 50);
+
+function spawnShootingStar() {
+  shooting.push({
+    x: Math.random() * W * 0.8 + W * 0.1,
+    y: Math.random() * H * 0.35,
+    vx: 7 + Math.random() * 6,
+    vy: 2.5 + Math.random() * 2.5,
+    life: 1
+  });
+}
+
+let scrollOffset = 0;
+window.addEventListener("scroll", () => { scrollOffset = window.scrollY; }, { passive: true });
+
+function render() {
+  ctx.clearRect(0, 0, W, H);
+  for (const s of stars) {
+    s.tw += s.ts;
+    const alpha = 0.35 + 0.55 * Math.abs(Math.sin(s.tw));
+    const py = (s.y - scrollOffset * s.z * 0.28) % H;
+    const y = py < 0 ? py + H : py;
+    ctx.beginPath();
+    ctx.arc(s.x, y, s.r * (0.6 + s.z * 0.7), 0, Math.PI * 2);
+    ctx.fillStyle = s.gold
+      ? "rgba(240, 199, 94, " + alpha.toFixed(3) + ")"
+      : "rgba(210, 222, 255, " + (alpha * 0.9).toFixed(3) + ")";
+    ctx.fill();
+  }
+  for (let i = shooting.length - 1; i >= 0; i--) {
+    const m = shooting[i];
+    m.x += m.vx; m.y += m.vy; m.life -= 0.018;
+    if (m.life <= 0 || m.x > W + 60 || m.y > H + 60) { shooting.splice(i, 1); continue; }
+    const grad = ctx.createLinearGradient(m.x, m.y, m.x - m.vx * 9, m.y - m.vy * 9);
+    grad.addColorStop(0, "rgba(255, 244, 214, " + (0.85 * m.life).toFixed(3) + ")");
+    grad.addColorStop(1, "rgba(255, 244, 214, 0)");
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(m.x, m.y);
+    ctx.lineTo(m.x - m.vx * 9, m.y - m.vy * 9);
+    ctx.stroke();
+  }
+  if (!reduceMotion && Math.random() < 0.004 && shooting.length < 2) spawnShootingStar();
+}
+function loop() {
+  render();
+  requestAnimationFrame(loop);
+}
+resize();
+window.addEventListener("resize", resize);
+if (reduceMotion) { render(); } else { loop(); }
+
+/* ---------- marquee: duplicate content for seamless loop (skip when static) ---------- */
+const marquee = document.getElementById("marquee");
+if (!reduceMotion) {
+  Array.from(marquee.children).forEach((item) => {
+    const clone = item.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    clone.tabIndex = -1;
+    marquee.appendChild(clone);
+  });
+}
+
+/* ---------- nav state + back to top ---------- */
+const nav = document.getElementById("nav");
+const toTop = document.getElementById("toTop");
+window.addEventListener("scroll", () => {
+  nav.classList.toggle("scrolled", window.scrollY > 24);
+  toTop.classList.toggle("show", window.scrollY > 700);
+}, { passive: true });
+toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }));
+
+/* ---------- reveal on scroll ---------- */
+const observer = new IntersectionObserver((entries) => {
+  for (const e of entries) {
+    if (e.isIntersecting) {
+      e.target.classList.add("in");
+      observer.unobserve(e.target);
+    }
+  }
+}, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+/* ---------- pointer glow follows cursor on cards ---------- */
+document.querySelectorAll(".app-card, .game-card").forEach((card) => {
+  card.addEventListener("pointermove", (e) => {
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty("--mx", ((e.clientX - rect.left) / rect.width) * 100 + "%");
+    card.style.setProperty("--my", ((e.clientY - rect.top) / rect.height) * 100 + "%");
+  });
+});
 </script>
 
 </body>
